@@ -38,7 +38,7 @@ public class MonsterDatabaseHelper extends SQLiteOpenHelper{
             cupboard().withDatabase(db).createTables();
 
             if (db == null){
-
+            //add ids for monsters
             }
         }
 
