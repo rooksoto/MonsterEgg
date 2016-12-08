@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="nyc.c4q.rafaelsoto.monsteregg.MainActivity"
+    tools:context="nyc.c4q.rafaelsoto.monsteregg.view.MainActivity"
     android:orientation="vertical"
     android:weightSum="2">
 
@@ -20,10 +20,15 @@
         android:layout_weight="1"
         android:paddingBottom="8dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_monster_recycler"
+        <ImageView
+            android:id="@+id/iv_monster_pic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/rv_monster_recycler"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
 
         </FrameLayout>
 
@@ -35,7 +40,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingTop="8dp"
-        android:weightSum="11">
+        android:weightSum="12">
 
         <TextView
             android:id="@+id/tv_monster_name"
@@ -45,7 +50,7 @@
             android:textSize="44sp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|top"
             android:layout_weight="3"/>
 
         <TextView
@@ -56,7 +61,7 @@
             android:textSize="26sp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|top"
             android:layout_weight="2"/>
 
         <TextView
@@ -67,7 +72,7 @@
             android:textSize="26sp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|top"
             android:layout_weight="2"/>
 
         <TextView
@@ -78,7 +83,7 @@
             android:textSize="26sp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|top"
             android:layout_weight="2"/>
 
         <TextView
@@ -89,10 +94,10 @@
             android:textSize="26sp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|top"
             android:layout_weight="2"/>
 
-
+0
     </LinearLayout>
 
 </LinearLayout>
