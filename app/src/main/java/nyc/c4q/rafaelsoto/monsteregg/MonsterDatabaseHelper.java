@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
+
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 /**

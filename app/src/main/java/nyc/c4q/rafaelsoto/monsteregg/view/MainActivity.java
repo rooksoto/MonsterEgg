@@ -1,86 +1,75 @@
 package nyc.c4q.rafaelsoto.monsteregg.view;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 import nyc.c4q.rafaelsoto.monsteregg.model.MonsterDataProvider;
+import nyc.c4q.rafaelsoto.monsteregg.presenter.MonsterAdapter;
+import nyc.c4q.rafaelsoto.monsteregg.presenter.NotificationReceiver;
+import nyc.c4q.rafaelsoto.monsteregg.presenter.NotificationService;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView ivMonsterPic;
-    TextView tvMonsterName;
-    TextView tvMonsterType;
-    TextView tvMonsterRarity;
-    TextView tvMonsterLikes;
-    TextView tvMonsterWeakness;
+    RecyclerView rv;
+    MonsterAdapter adapter;
+    List<Monster> caughtMonsters = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initViews();
-        loadMonster();
+        caughtMonsters.add(MonsterDataProvider.monsterMap.get(0));
+        caughtMonsters.add(MonsterDataProvider.monsterMap.get(1));
+        caughtMonsters.add(MonsterDataProvider.monsterMap.get(2));
+        caughtMonsters.add(MonsterDataProvider.monsterList.get(3));
+        caughtMonsters.add(MonsterDataProvider.monsterList.get(4));
+        caughtMonsters.add(MonsterDataProvider.monsterList.get(5));
+
+        rv = (RecyclerView) findViewById((R.id.rv_monster_recycler));
+        rv.setLayoutManager(new GridLayoutManager(this, 3));
+        adapter = new MonsterAdapter(caughtMonsters);
+        adapter.notifyDataSetChanged(); //necessary?
+        rv.setAdapter(adapter);
+
+        scheduleAlarm();
     }
 
-    private void loadMonster(){
-
-
-        //Load a Random Monster
-        Random random = new Random();
-
-        //Generate from Map, call by monster "name" value
-//        Monster thisMonster = MonsterDataProvider.monsterMap.get("Jinx");
-
-        //Generate from List, call monster by array index
-        Monster thisMonster = MonsterDataProvider.monsterList.get(0);
-
-        //Load Image from Assets
-        try {
-            InputStream is = getAssets().open(thisMonster.getImageAsset());
-            Drawable d = Drawable.createFromStream(is, null);
-            ivMonsterPic.setImageDrawable(d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        tvMonsterName.setText(thisMonster.getName());
-        tvMonsterType.setText("Type: " + thisMonster.getType());
-
-        switch (thisMonster.getRarity()) {
-            case "Common":
-                tvMonsterRarity.setTextColor(Color.DKGRAY);
-                break;
-            case "Rare":
-                tvMonsterRarity.setTextColor(Color.BLUE);
-                break;
-            case "Super Rare":
-                tvMonsterRarity.setTextColor(Color.MAGENTA);
-                break;
-            default:
-                break;
-        }
-        tvMonsterRarity.setText("Rarity: " + thisMonster.getRarity());
-        tvMonsterLikes.setText("Likes: " + thisMonster.getLikes());
-        tvMonsterWeakness.setText("Weakness: " + thisMonster.getWeakness());
+    public void launchTestService() {
+        Intent i = new Intent(this, NotificationService.class);
+        startService(i);
     }
 
-    private void initViews() {
-        ivMonsterPic = (ImageView) findViewById(R.id.iv_monster_pic);
-        tvMonsterName = (TextView) findViewById(R.id.tv_monster_name);
-        tvMonsterType = (TextView) findViewById(R.id.tv_monster_type);
-        tvMonsterRarity = (TextView) findViewById(R.id.tv_monster_rarity);
-        tvMonsterLikes = (TextView) findViewById(R.id.tv_monster_likes);
-        tvMonsterWeakness = (TextView) findViewById(R.id.tv_monster_weakness);
+
+    public void scheduleAlarm() {
+
+        // Construct an intent that will execute the AlarmReceiver
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+
+        // Create a PendingIntent to be triggered when the alarm goes off
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, NotificationReceiver.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+        //below works, sets alarm every 30 secs (for testing now)
+        // alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, AlarmManager.INTERVAL_FIFTEEN_MINUTES/30, pendingIntent);
     }
+
+
 }
+
