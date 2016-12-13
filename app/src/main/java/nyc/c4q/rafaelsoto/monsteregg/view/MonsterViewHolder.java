@@ -28,7 +28,7 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Monster aMonster) {
-        // caughtMonsterName.set
+
         caughtMonsterName.setText(aMonster.getName());
     }
 }
