@@ -22,12 +22,8 @@ public class MonsterAdapter extends RecyclerView.Adapter {
 
 
     public MonsterAdapter(List<Monster> caughtMonsters) {
-//        caughtMonsters.add(MonsterDataProvider.monsterMap.get(0));
-//        caughtMonsters.add(MonsterDataProvider.monsterMap.get(1));
-//        caughtMonsters.add(MonsterDataProvider.monsterMap.get(2));
-//        caughtMonsters.add(MonsterDataProvider.monsterList.get(3));
-//        caughtMonsters.add(MonsterDataProvider.monsterList.get(4));
-//        caughtMonsters.add(MonsterDataProvider.monsterList.get(5));
+
+        monsterList = caughtMonsters;
     }
 
     @Override

@@ -30,17 +30,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        caughtMonsters.add(MonsterDataProvider.monsterMap.get(0));
-        caughtMonsters.add(MonsterDataProvider.monsterMap.get(1));
-        caughtMonsters.add(MonsterDataProvider.monsterMap.get(2));
-        caughtMonsters.add(MonsterDataProvider.monsterList.get(3));
-        caughtMonsters.add(MonsterDataProvider.monsterList.get(4));
-        caughtMonsters.add(MonsterDataProvider.monsterList.get(5));
+        caughtMonsters.addAll(MonsterDataProvider.monsterList);
 
         rv = (RecyclerView) findViewById((R.id.rv_monster_recycler));
         rv.setLayoutManager(new GridLayoutManager(this, 3));
         adapter = new MonsterAdapter(caughtMonsters);
-        adapter.notifyDataSetChanged(); //necessary?
         rv.setAdapter(adapter);
 
         scheduleAlarm();
