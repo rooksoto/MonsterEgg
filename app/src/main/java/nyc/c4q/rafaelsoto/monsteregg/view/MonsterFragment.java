@@ -1,27 +1,20 @@
 package nyc.c4q.rafaelsoto.monsteregg.view;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
+import com.squareup.picasso.Picasso;
 
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
-import nyc.c4q.rafaelsoto.monsteregg.model.MonsterDataProvider;
 
-/**
- * Created by shannonalexander-navarro on 12/10/16.
- */
 
 public class MonsterFragment extends Fragment {
     View root;
@@ -32,42 +25,22 @@ public class MonsterFragment extends Fragment {
     TextView tvMonsterLikes;
     TextView tvMonsterWeakness;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.monster_fragment, container, false);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.activity_monster, container, false);
         initViews();
-        loadMonster();
+        loadMonster((Monster) getArguments().getSerializable("monster"));
         return root;
-
-
     }
 
-    private void loadMonster() {
+    public void loadMonster(Monster monster) {
 
-        //Load a Random Monster
-        Random random = new Random();
+        Picasso.with(getContext()).load("file:///android_asset/" + monster.getImageAsset()).into(ivMonsterPic);
 
-        //Generate from Map, call by monster "name" value
-//        Monster thisMonster = MonsterDataProvider.monsterMap.get("Jinx");
+        tvMonsterName.setText(monster.getName());
+        tvMonsterType.setText("Type: " + monster.getType());
 
-        //Generate from List, call monster by array index
-        Monster thisMonster = MonsterDataProvider.monsterList.get(random.nextInt(37));
-
-        //Load Image from Assets
-        try {
-            InputStream is = getActivity().getAssets().open(thisMonster.getImageAsset());
-            Drawable d = Drawable.createFromStream(is, null);
-            ivMonsterPic.setImageDrawable(d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        tvMonsterName.setText(thisMonster.getName());
-        tvMonsterType.setText("Type: " + thisMonster.getType());
-
-        switch (thisMonster.getRarity()) {
+        switch (monster.getRarity()) {
             case "Common":
                 tvMonsterRarity.setTextColor(Color.DKGRAY);
                 break;
@@ -80,9 +53,9 @@ public class MonsterFragment extends Fragment {
             default:
                 break;
         }
-        tvMonsterRarity.setText("Rarity: " + thisMonster.getRarity());
-        tvMonsterLikes.setText("Likes: " + thisMonster.getLikes());
-        tvMonsterWeakness.setText("Weakness: " + thisMonster.getWeakness());
+        tvMonsterRarity.setText("Rarity: " + monster.getRarity());
+        tvMonsterLikes.setText("Likes: " + monster.getLikes());
+        tvMonsterWeakness.setText("Weakness: " + monster.getWeakness());
     }
 
     private void initViews() {
