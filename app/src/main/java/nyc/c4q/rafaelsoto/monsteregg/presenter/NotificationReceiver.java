@@ -14,10 +14,6 @@ import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 import nyc.c4q.rafaelsoto.monsteregg.model.MonsterDataProvider;
 
-/**
- * Created by shannonalexander-navarro on 12/10/16.
- */
-
 public class NotificationReceiver extends BroadcastReceiver {
 
     public static final int REQUEST_CODE = 12345;
@@ -27,7 +23,6 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         Random random = new Random();
         Monster thisMonster = MonsterDataProvider.monsterList.get(random.nextInt(37));
         notification(context, thisMonster);
@@ -46,11 +41,39 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setContentIntent(pendingIntent) //this starts the service when the notification is clicked
                 .setContentText("" + monster.getName() + " is lurking, try to catch it if you dare!");
 
-// Get the notification manager system service
+        // Get the notification manager system service
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Setting a notification ID allows you to update the notification later on.
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
+
+    /*
+    This adds one of 3 sounds to builder
+    Simply add:
+                .setSound(randomSound())
+    after .setContext. Not currently being used.
+     */
+
+//    private Uri randomSound() {
+//        Uri uri;
+//        Random random = new Random();
+//        int sound = random.nextInt(3);
+//        switch (sound) {
+//            case 0:
+//                uri = Uri.parse("file:///android_asset/snd_growl");
+//                break;
+//            case 1:
+//                uri = Uri.parse("file:///android_asset/snd_mercy");
+//                break;
+//            case 2:
+//                uri = Uri.parse("file:///android_asset/snd_soul");
+//                break;
+//            default:
+//                uri = Uri.parse("file:///android_asset/snd_growl.mp3");
+//                break;
+//        }
+//        return uri;
+//    }
 }

@@ -4,10 +4,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-/**
- * Created by shannonalexander-navarro on 12/10/16.
- */
-
 public class NotificationService extends IntentService {
 
     private static final String SERVICE_NAME = "notification-service";

@@ -10,8 +10,6 @@ import java.util.Map;
  */
 
 
-
-
 //This class stores all of our Monster objects in a List and in a Map
 public class MonsterDataProvider {
 
