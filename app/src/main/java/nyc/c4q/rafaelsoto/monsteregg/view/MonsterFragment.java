@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.parceler.Parcels;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
@@ -31,16 +33,19 @@ public class MonsterFragment extends Fragment {
     TextView tvMonsterRarity;
     TextView tvMonsterLikes;
     TextView tvMonsterWeakness;
+    Monster monster;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.monster_fragment, container, false);
 
+        monster = Parcels.unwrap(getArguments().getParcelable(MonsterViewHolder.MONSTER));
+
         initViews();
         loadMonster();
-        return root;
 
+        return root;
 
     }
 
@@ -48,9 +53,6 @@ public class MonsterFragment extends Fragment {
 
         //Load a Random Monster
         Random random = new Random();
-
-        //Generate from Map, call by monster "name" value
-//        Monster thisMonster = MonsterDataProvider.monsterMap.get("Jinx");
 
         //Generate from List, call monster by array index
         Monster thisMonster = MonsterDataProvider.monsterList.get(random.nextInt(37));
@@ -64,8 +66,8 @@ public class MonsterFragment extends Fragment {
             e.printStackTrace();
         }
 
-        tvMonsterName.setText(thisMonster.getName());
-        tvMonsterType.setText("Type: " + thisMonster.getType());
+        tvMonsterName.setText(monster.getName());
+        tvMonsterType.setText("Type: " + monster.getType());
 
         switch (thisMonster.getRarity()) {
             case "Common":
@@ -80,9 +82,9 @@ public class MonsterFragment extends Fragment {
             default:
                 break;
         }
-        tvMonsterRarity.setText("Rarity: " + thisMonster.getRarity());
-        tvMonsterLikes.setText("Likes: " + thisMonster.getLikes());
-        tvMonsterWeakness.setText("Weakness: " + thisMonster.getWeakness());
+        tvMonsterRarity.setText("Rarity: " + monster.getRarity());
+        tvMonsterLikes.setText("Likes: " + monster.getLikes());
+        tvMonsterWeakness.setText("Weakness: " + monster.getWeakness());
     }
 
     private void initViews() {

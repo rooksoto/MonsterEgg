@@ -1,12 +1,12 @@
 package nyc.c4q.rafaelsoto.monsteregg.model;
 
-import java.io.Serializable;
+import org.parceler.Parcel;
 
 /**
  * Created by rook on 12/5/16.
  */
-
-public class Monster implements Serializable {
+@Parcel
+public class Monster  {
 
     private long _id;
     private String name;
