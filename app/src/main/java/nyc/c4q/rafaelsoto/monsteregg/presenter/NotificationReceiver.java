@@ -13,6 +13,7 @@ import java.util.Random;
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 import nyc.c4q.rafaelsoto.monsteregg.model.MonsterDataProvider;
+import nyc.c4q.rafaelsoto.monsteregg.view.MainActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -31,9 +32,9 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void notification(Context context, Monster monster) {
 
         Toast.makeText(context, "New Monster Detected, Approach With Caution!", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(context, NotificationService.class);
+        Intent i = new Intent(context, MainActivity.class);
         i.putExtra(KEY, monster);
-        final PendingIntent pendingIntent = PendingIntent.getService(context, 0, i, 0);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.cracked_egg)
