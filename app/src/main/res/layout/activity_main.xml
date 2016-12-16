@@ -10,20 +10,19 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="nyc.c4q.rafaelsoto.monsteregg.view.MainActivity"
-    android:orientation="vertical"
-    android:weightSum="2">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_monster_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/fl_fragment_holder"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:paddingBottom="8dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_monster_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </FrameLayout>
 
 

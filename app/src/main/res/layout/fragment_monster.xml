@@ -27,18 +27,18 @@
             android:background="@drawable/parchment"
             android:orientation="vertical"
             android:paddingTop="8dp"
-            android:weightSum="11">
+            android:weightSum="13">
 
             <TextView
                 android:id="@+id/tv_monster_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:fontFamily="casual"
                 android:gravity="center_horizontal|center_vertical"
                 android:padding="4dp"
                 android:text="Monster Name"
-                android:textSize="44sp" />
+                android:textSize="32sp" />
 
             <TextView
                 android:id="@+id/tv_monster_type"
@@ -49,7 +49,7 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:padding="4dp"
                 android:text="Type: Undead"
-                android:textSize="26sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_monster_rarity"
@@ -60,7 +60,7 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:padding="4dp"
                 android:text="Rarity: Normal"
-                android:textSize="26sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_monster_likes"
@@ -71,7 +71,7 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:padding="4dp"
                 android:text="Likes: Eating Children"
-                android:textSize="26sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_monster_weakness"
@@ -82,7 +82,7 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:padding="4dp"
                 android:text="Weakness: Kittens"
-                android:textSize="26sp" />
+                android:textSize="18sp" />
 
 
         </LinearLayout>

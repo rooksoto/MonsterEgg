@@ -20,7 +20,6 @@ public class NotificationReceiver extends BroadcastReceiver {
     public static final int REQUEST_CODE = 12345;
     public static final String ACTION = "monster_alarm";
     private static final int NOTIFICATION_ID = 14;
-    private static final String KEY = "key";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -32,13 +31,15 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void notification(Context context, Monster monster) {
 
         Toast.makeText(context, "New Monster Detected, Approach With Caution!", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(context, MainActivity.class);
-        i.putExtra(KEY, monster);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("ser_monster", monster);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.cracked_egg)
                 .setContentTitle("New Monster Detected")
+                .setAutoCancel(true)
                 .setContentIntent(pendingIntent) //this starts the service when the notification is clicked
                 .setContentText("" + monster.getName() + " is lurking, try to catch it if you dare!");
 
