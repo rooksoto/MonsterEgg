@@ -2,7 +2,6 @@ package nyc.c4q.rafaelsoto.monsteregg.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +11,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 
-/**
- * Created by shannonalexander-navarro on 12/10/16.
- */
 
 public class MonsterFragment extends Fragment {
     View view;
@@ -29,28 +23,18 @@ public class MonsterFragment extends Fragment {
     TextView tvMonsterRarity;
     TextView tvMonsterLikes;
     TextView tvMonsterWeakness;
-    Monster monster;
 
     public static MonsterFragment newInstance(Bundle bundle) {
 
         return new MonsterFragment();
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_monster, container, false);
-
-        monster = Parcels.unwrap(getArguments().getParcelable(MonsterViewHolder.MONSTER));
-//        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.close_icon);
-//        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_monster, container, false);
         initViews();
         loadMonster((Monster) getArguments().getSerializable("monster"));
         return view;
-
-
     }
 
     public void loadMonster(Monster monster) {
