@@ -1,5 +1,6 @@
 package nyc.c4q.rafaelsoto.monsteregg.presenter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,6 @@ import java.util.List;
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 import nyc.c4q.rafaelsoto.monsteregg.view.MonsterViewHolder;
-
-/**
- * Created by shannonalexander-navarro on 12/10/16.
- */
 
 public class MonsterAdapter extends RecyclerView.Adapter {
 
@@ -36,9 +33,11 @@ public class MonsterAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         MonsterViewHolder viewHolder = (MonsterViewHolder) holder;
-
         Monster aMonster = monsterList.get(position);
         viewHolder.bind(aMonster);
+
+
+
     }
 
     @Override

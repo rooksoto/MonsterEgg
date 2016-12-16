@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/ll_fragment_holder"
     android:background="@drawable/parchment_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +12,6 @@
     tools:context="nyc.c4q.rafaelsoto.monsteregg.view.MainActivity"
     android:orientation="vertical"
     android:weightSum="2">
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_monster_recycler"
