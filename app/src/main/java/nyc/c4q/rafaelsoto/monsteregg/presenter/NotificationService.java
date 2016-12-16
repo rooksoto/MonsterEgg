@@ -23,6 +23,7 @@ public class NotificationService extends IntentService {
         // This describes what will happen when service is triggered, i.e. show a notification
         Log.d("hmm", "myesss");
 //this is where i add the monster to the database, it does the work in the background
+
         //necessary bc i am doing database work
     }
 
