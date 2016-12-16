@@ -4,7 +4,8 @@
     android:id="@+id/cv_monster_item"
     android:layout_width="120dp"
     android:layout_height="120dp"
-    app:cardElevation="4dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp"
     android:padding="10dp">
 
     <LinearLayout
