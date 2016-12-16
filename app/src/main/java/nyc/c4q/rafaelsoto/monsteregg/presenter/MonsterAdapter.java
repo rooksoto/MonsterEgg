@@ -35,9 +35,6 @@ public class MonsterAdapter extends RecyclerView.Adapter {
         MonsterViewHolder viewHolder = (MonsterViewHolder) holder;
         Monster aMonster = monsterList.get(position);
         viewHolder.bind(aMonster);
-
-
-
     }
 
     @Override

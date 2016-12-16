@@ -40,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
         //Instantiate the database
         database = instantiateDataBase();
 
-        /*
-
         //This function adds a monster to the database
-        addMonster(PASS IN A MONSTER HERE);
-
-        */
+        try {
+            Monster passedInMonster = (Monster)
+                    getIntent()
+                    .getSerializableExtra("ser_monster");
+            addMonster(passedInMonster);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //Load database into the "caughtMonsters" adapter
         caughtMonsters = loadDataBase(database);
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addMonster(Monster monster) {
         cupboard().withDatabase(database).put(monster);
+        adapter.notifyDataSetChanged();
     }
 
     private List<Monster> loadDataBase(SQLiteDatabase database) {
@@ -96,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, NotificationService.class);
         startService(i);
     }
-
 
     public void scheduleAlarm() {
 

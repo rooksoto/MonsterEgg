@@ -2,6 +2,7 @@ package nyc.c4q.rafaelsoto.monsteregg.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
 
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
@@ -24,17 +27,33 @@ public class MonsterFragment extends Fragment {
     TextView tvMonsterLikes;
     TextView tvMonsterWeakness;
 
-    public static MonsterFragment newInstance(Bundle bundle) {
+    public static MonsterFragment newInstance(Serializable monster) {
 
-        return new MonsterFragment();
+        MonsterFragment fragment = new MonsterFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ser_monster", monster);
+
+        return fragment;
+    }
+
+    public MonsterFragment() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_monster, container, false);
+        view = inflater.inflate(R.layout.fragment_monster, container, false);
         initViews();
-        loadMonster((Monster) getArguments().getSerializable("monster"));
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        loadMonster((Monster) getArguments()
+                .getSerializable("ser_monster")
+        );
     }
 
     public void loadMonster(Monster monster) {
