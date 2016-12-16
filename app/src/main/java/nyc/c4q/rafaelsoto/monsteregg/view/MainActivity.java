@@ -6,11 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,6 @@ import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 import nyc.c4q.rafaelsoto.monsteregg.presenter.MonsterAdapter;
 import nyc.c4q.rafaelsoto.monsteregg.presenter.MonsterDatabaseHelper;
 import nyc.c4q.rafaelsoto.monsteregg.presenter.NotificationReceiver;
-import nyc.c4q.rafaelsoto.monsteregg.presenter.NotificationService;
 
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
@@ -44,16 +43,21 @@ public class MainActivity extends AppCompatActivity {
         try {
             Monster passedInMonster = (Monster)
                     getIntent()
-                    .getSerializableExtra("ser_monster");
+                            .getSerializableExtra("ser_monster");
             addMonster(passedInMonster);
+            getIntent().removeExtra("ser_monster");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         //Load database into the "caughtMonsters" adapter
         caughtMonsters = loadDataBase(database);
-        //Initialize RecyclerView
+        if (caughtMonsters.size() == 0) {
+            Toast.makeText(this,
+                    "You have no monsters... Go catch some!", Toast.LENGTH_LONG).show();
+        }
 
+        //Initialize RecyclerView
         initRecyclerView();
 
         //Schedules notifications
@@ -74,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
             for (Monster monster : iterable) {
                 caughtMonsters.add(monster);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.i("loadDataBase", "Stacktrace: " + e);
         }
 
@@ -96,11 +99,6 @@ public class MainActivity extends AppCompatActivity {
         return database;
     }
 
-    public void launchTestService() {
-        Intent i = new Intent(this, NotificationService.class);
-        startService(i);
-    }
-
     public void scheduleAlarm() {
 
         // Construct an intent that will execute the AlarmReceiver
@@ -119,16 +117,23 @@ public class MainActivity extends AppCompatActivity {
         alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, AlarmManager.INTERVAL_FIFTEEN_MINUTES / 30, pendingIntent);
     }
 
-    public void showMonster(Fragment fragment, Monster monster) {
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("monster", monster);
-        fragment.setArguments(bundle);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.ll_fragment_holder, fragment).commit();
+    @Override
+    public void onBackPressed() {
+        boolean backStackExists = (getSupportFragmentManager().getBackStackEntryCount() > 0);
+        if (backStackExists) {
+            super.onBackPressed();
+        } else {
+            super.finish();
+        }
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (caughtMonsters != null) {
+            caughtMonsters.clear();
+            caughtMonsters = loadDataBase(database);
+        }
+        adapter.notifyDataSetChanged();
+    }
 }
-

@@ -2,12 +2,12 @@ package nyc.c4q.rafaelsoto.monsteregg.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -18,7 +18,7 @@ import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 
 
-public class MonsterFragment extends Fragment {
+public class MonsterFragment extends Fragment  {
     View view;
     ImageView ivMonsterPic;
     TextView tvMonsterName;
@@ -26,6 +26,7 @@ public class MonsterFragment extends Fragment {
     TextView tvMonsterRarity;
     TextView tvMonsterLikes;
     TextView tvMonsterWeakness;
+    LinearLayout linearLayout;
 
     public static MonsterFragment newInstance(Serializable monster) {
 
@@ -48,7 +49,7 @@ public class MonsterFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         loadMonster((Monster) getArguments()
@@ -82,6 +83,7 @@ public class MonsterFragment extends Fragment {
     }
 
     private void initViews() {
+        linearLayout = (LinearLayout) view.findViewById(R.id.ll_monster_frag);
         ivMonsterPic = (ImageView) view.findViewById(R.id.iv_monster_pic);
         tvMonsterName = (TextView) view.findViewById(R.id.tv_monster_name);
         tvMonsterType = (TextView) view.findViewById(R.id.tv_monster_type);

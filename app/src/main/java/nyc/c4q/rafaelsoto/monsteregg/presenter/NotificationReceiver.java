@@ -18,7 +18,6 @@ import nyc.c4q.rafaelsoto.monsteregg.view.MainActivity;
 public class NotificationReceiver extends BroadcastReceiver {
 
     public static final int REQUEST_CODE = 12345;
-    public static final String ACTION = "monster_alarm";
     private static final int NOTIFICATION_ID = 14;
 
     @Override
