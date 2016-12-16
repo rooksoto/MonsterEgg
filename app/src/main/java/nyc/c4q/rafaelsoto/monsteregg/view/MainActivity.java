@@ -24,12 +24,12 @@ import nyc.c4q.rafaelsoto.monsteregg.presenter.NotificationReceiver;
 
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity    {
 
     RecyclerView rv;
-    MonsterAdapter adapter;
+    static MonsterAdapter adapter;
     static List<Monster> caughtMonsters = new ArrayList<>();
-    SQLiteDatabase database;
+    static SQLiteDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,4 +136,6 @@ public class MainActivity extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
     }
+
+
 }

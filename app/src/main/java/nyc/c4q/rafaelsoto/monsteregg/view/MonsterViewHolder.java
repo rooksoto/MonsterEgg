@@ -17,6 +17,9 @@ import com.squareup.picasso.Picasso;
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
+import static nyc.c4q.rafaelsoto.monsteregg.view.MainActivity.database;
+
 public class MonsterViewHolder extends RecyclerView.ViewHolder {
 
     CardView cardView;
@@ -30,6 +33,14 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
         linearLayout = (LinearLayout) itemView.findViewById(R.id.ll_monster_item);
         caughtMonsterImage = (ImageView) itemView.findViewById(R.id.caught_image);
         caughtMonsterName = (TextView) itemView.findViewById(R.id.caught_name);
+    }
+
+    private void removeMonster(Monster monster) {
+        cupboard().withDatabase(database).delete(monster);
+    }
+
+    private void refreshMonsterList() {
+        MainActivity.adapter.notifyDataSetChanged();
     }
 
     public void bind(final Monster aMonster) {
@@ -46,14 +57,24 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
                 Fragment monsterFragment = MonsterFragment.newInstance(aMonster);
                 monsterFragment.setArguments(bundle);
 
-                FragmentManager fragmentManager = ((FragmentActivity)view
+                FragmentManager fragmentManager = ((FragmentActivity) view
                         .getContext())
                         .getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager
                         .beginTransaction();
-                fragmentTransaction.replace(R.id.fl_fragment_holder,monsterFragment)
+                fragmentTransaction.replace(R.id.fl_fragment_holder, monsterFragment)
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+
+        caughtMonsterImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                cupboard().withDatabase(database).get(aMonster); //getting cat from db
+                removeMonster(aMonster);
+                refreshMonsterList();
+                return true;
             }
         });
     }
