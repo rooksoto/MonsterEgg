@@ -41,6 +41,9 @@ public class MonsterFragment extends Fragment {
         root = inflater.inflate(R.layout.monster_fragment, container, false);
 
         monster = Parcels.unwrap(getArguments().getParcelable(MonsterViewHolder.MONSTER));
+//        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.close_icon);
+//        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         initViews();
         loadMonster();
