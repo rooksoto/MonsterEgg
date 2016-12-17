@@ -86,9 +86,9 @@ public class MonsterFragment extends Fragment  {
         linearLayout = (LinearLayout) view.findViewById(R.id.ll_monster_frag);
         ivMonsterPic = (ImageView) view.findViewById(R.id.iv_monster_pic);
         tvMonsterName = (TextView) view.findViewById(R.id.tv_monster_name);
-        tvMonsterType = (TextView) view.findViewById(R.id.tv_monster_type);
+        tvMonsterType = (TextView) view.findViewById(R.id.tv_monster_familiar);
         tvMonsterRarity = (TextView) view.findViewById(R.id.tv_monster_rarity);
-        tvMonsterLikes = (TextView) view.findViewById(R.id.tv_monster_likes);
-        tvMonsterWeakness = (TextView) view.findViewById(R.id.tv_monster_weakness);
+        tvMonsterLikes = (TextView) view.findViewById(R.id.tv_monster_ability_1);
+        tvMonsterWeakness = (TextView) view.findViewById(R.id.tv_monster_ability_2);
     }
 }
