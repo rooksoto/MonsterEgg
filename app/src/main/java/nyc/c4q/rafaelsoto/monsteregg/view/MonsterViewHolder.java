@@ -18,6 +18,8 @@ import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;
+import static nyc.c4q.rafaelsoto.monsteregg.view.MainActivity.adapter;
+import static nyc.c4q.rafaelsoto.monsteregg.view.MainActivity.caughtMonsters;
 import static nyc.c4q.rafaelsoto.monsteregg.view.MainActivity.database;
 
 public class MonsterViewHolder extends RecyclerView.ViewHolder {
@@ -37,10 +39,6 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
 
     private void removeMonster(Monster monster) {
         cupboard().withDatabase(database).delete(monster);
-    }
-
-    private void refreshMonsterList() {
-        MainActivity.adapter.notifyDataSetChanged();
     }
 
     public void bind(final Monster aMonster) {
@@ -71,11 +69,17 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
         caughtMonsterImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                cupboard().withDatabase(database).get(aMonster); //getting cat from db
+                caughtMonsters.remove(aMonster);
+                cupboard().withDatabase(database).get(aMonster);
                 removeMonster(aMonster);
                 refreshMonsterList();
+
                 return true;
             }
         });
+    }
+
+    private void refreshMonsterList() {
+        adapter.notifyDataSetChanged();
     }
 }

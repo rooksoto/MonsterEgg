@@ -23,6 +23,11 @@ public class MonsterAdapter extends RecyclerView.Adapter {
         monsterList = caughtMonsters;
     }
 
+    public void setData(List<Monster> monsterList) {
+        this.monsterList = monsterList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.monster_item, parent, false);
