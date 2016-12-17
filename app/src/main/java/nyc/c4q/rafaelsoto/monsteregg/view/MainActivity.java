@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 public class MainActivity extends AppCompatActivity    {
 
+    EditText editName;
     RecyclerView rv;
     static MonsterAdapter adapter;
     static List<Monster> caughtMonsters = new ArrayList<>();
@@ -62,6 +64,9 @@ public class MainActivity extends AppCompatActivity    {
 
         //Schedules notifications
         scheduleAlarm();
+
+        editName = (EditText) findViewById(R.id.edit_name);
+
     }
 
     private void addMonster(Monster monster) {

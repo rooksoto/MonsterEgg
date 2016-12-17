@@ -79,7 +79,7 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    private void refreshMonsterList() {
+    public void refreshMonsterList() {
         adapter.notifyDataSetChanged();
     }
 }

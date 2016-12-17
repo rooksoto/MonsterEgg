@@ -35,6 +35,7 @@
             android:textAllCaps="true"
             android:textSize="14sp" />
 
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
