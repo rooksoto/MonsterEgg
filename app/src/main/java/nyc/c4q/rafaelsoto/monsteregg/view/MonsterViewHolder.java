@@ -92,7 +92,7 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
         cupboard().withDatabase(database).delete(monster);
     }
 
-    private void addMonster(Monster monster) {
+    public void addMonster(Monster monster) {
         cupboard().withDatabase(database).put(monster);
     }
 

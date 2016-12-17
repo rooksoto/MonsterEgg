@@ -65,7 +65,7 @@ public class MonsterDataProvider {
 
     }
 
-    private static void addMonster(Monster monster) {
+    public static void addMonster(Monster monster) {
         monsterList.add(monster);
         monsterMap.put(monster.getName(), monster);
     }

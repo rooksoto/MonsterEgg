@@ -1,5 +1,6 @@
 package nyc.c4q.rafaelsoto.monsteregg.view;
 
+import android.content.ContentValues;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,9 @@ import java.io.Serializable;
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
 
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 import static nyc.c4q.rafaelsoto.monsteregg.view.MainActivity.adapter;
+import static nyc.c4q.rafaelsoto.monsteregg.view.MainActivity.database;
 
 
 public class MonsterFragment extends Fragment {
@@ -34,6 +37,8 @@ public class MonsterFragment extends Fragment {
     TextView button;
     public static final String SHARED_PREF = "nyc.c4q.user.pref";
     public static final String TAG = "user input";
+    Monster monster;
+    String monsterName;
 
 
     public static MonsterFragment newInstance(Serializable monster) {
@@ -59,16 +64,19 @@ public class MonsterFragment extends Fragment {
         initViews();
 
         button.setOnClickListener(new View.OnClickListener() {
-            @Override
+           // @Override
             public void onClick(View view) {
-                String monsterName = editText.getText().toString();
+                monsterName = editText.getText().toString();
 
                 if (!monsterName.isEmpty()) {
                     tvMonsterName.setText(monsterName);
+                    ContentValues contentValues = new ContentValues(1);
+                    contentValues.put("name", monsterName);
+                    cupboard().withDatabase(database).update(Monster.class, contentValues, "name = ?", tvMonsterName.toString());
                     refreshMonsterList();
-//                    SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREF, MODE_PRIVATE).edit();
-//                    editor.putString(getIntent().getExtras().getString(TAG), monsterName);
-                  //  editor.apply();
+                  // monsterClicked(monster);
+                  //  refreshMonsterList();
+
                 }
             }
         });
@@ -122,5 +130,12 @@ public class MonsterFragment extends Fragment {
         tvMonsterWeakness = (TextView) view.findViewById(R.id.tv_monster_weakness);
 
     }
+
+//    private void monsterClicked(Monster monster){
+//        ContentValues contentValues = new ContentValues(1);
+//        contentValues.put("name", monsterName);
+//        cupboard().withDatabase(database).update(Monster.class, contentValues, "name = ?", String.valueOf(tvMonsterName));
+//        refreshMonsterList();
+//    }
 
 }
