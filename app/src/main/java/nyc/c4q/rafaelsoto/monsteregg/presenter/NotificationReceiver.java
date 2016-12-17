@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSound(randomSound())
                 .setSmallIcon(R.drawable.cracked_egg)
                 .setContentTitle("New Monster Detected")
                 .setAutoCancel(true)
@@ -57,24 +59,24 @@ public class NotificationReceiver extends BroadcastReceiver {
     after .setContext. Not currently being used.
      */
 
-//    private Uri randomSound() {
-//        Uri uri;
-//        Random random = new Random();
-//        int sound = random.nextInt(3);
-//        switch (sound) {
-//            case 0:
-//                uri = Uri.parse("file:///android_asset/snd_growl");
-//                break;
-//            case 1:
-//                uri = Uri.parse("file:///android_asset/snd_mercy");
-//                break;
-//            case 2:
-//                uri = Uri.parse("file:///android_asset/snd_soul");
-//                break;
-//            default:
-//                uri = Uri.parse("file:///android_asset/snd_growl.mp3");
-//                break;
-//        }
-//        return uri;
-//    }
+    private Uri randomSound() {
+        Uri uri;
+        Random random = new Random();
+        int sound = random.nextInt(3);
+        switch (sound) {
+            case 0:
+                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_growl);
+                break;
+            case 1:
+                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_soul);
+                break;
+            case 2:
+                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_mercy);
+                break;
+            default:
+                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_growl);
+                break;
+        }
+        return uri;
+    }
 }

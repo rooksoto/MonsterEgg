@@ -1,6 +1,7 @@
 package nyc.c4q.rafaelsoto.monsteregg.view;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -37,10 +38,6 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
         caughtMonsterName = (TextView) itemView.findViewById(R.id.caught_name);
     }
 
-    private void removeMonster(Monster monster) {
-        cupboard().withDatabase(database).delete(monster);
-    }
-
     public void bind(final Monster aMonster) {
 
         caughtMonsterName.setText(aMonster.getName());
@@ -74,12 +71,32 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
                 removeMonster(aMonster);
                 refreshMonsterList();
 
+                Snackbar snackbar = Snackbar.make(itemView,
+                        aMonster.getName() + " was removed from the collection!",
+                        Snackbar.LENGTH_LONG)
+                        .setAction("Undo ⎌", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                caughtMonsters.add(aMonster);
+                                addMonster(aMonster);
+                                refreshMonsterList();
+                            }
+                        });
+                snackbar.show();
                 return true;
             }
         });
     }
 
-    public void refreshMonsterList() {
+    private void removeMonster(Monster monster) {
+        cupboard().withDatabase(database).delete(monster);
+    }
+
+    private void addMonster(Monster monster) {
+        cupboard().withDatabase(database).put(monster);
+    }
+
+    private void refreshMonsterList() {
         adapter.notifyDataSetChanged();
     }
 }

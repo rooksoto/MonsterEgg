@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity    {
 
     private void addMonster(Monster monster) {
         cupboard().withDatabase(database).put(monster);
-        adapter.notifyDataSetChanged();
+        onResume();
     }
 
     private List<Monster> loadDataBase(SQLiteDatabase database) {
