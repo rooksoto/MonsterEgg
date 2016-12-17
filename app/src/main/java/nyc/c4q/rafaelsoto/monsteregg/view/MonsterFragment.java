@@ -34,7 +34,7 @@ public class MonsterFragment extends Fragment  {
     TextView tvMonsterWeakness;
     LinearLayout linearLayout;
 
-    static Monster thisMonster;
+    public static Monster fragmentMonster;
 
     public static MonsterFragment newInstance(Serializable monster) {
         MonsterFragment fragment = new MonsterFragment();
@@ -59,7 +59,7 @@ public class MonsterFragment extends Fragment  {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        thisMonster = loadMonster((Monster) getArguments()
+        loadMonster((Monster) getArguments()
                 .getSerializable("ser_monster")
         );
 
@@ -83,16 +83,22 @@ public class MonsterFragment extends Fragment  {
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 etMonsterName.setEnabled(false);
                 etMonsterName.setText(etMonsterName.getText());
-                cupboard().withDatabase(MainActivity.database).get(thisMonster._id);
-                thisMonster.setName(etMonsterName.getText().toString());
-                cupboard().withDatabase(MainActivity.database).put(thisMonster);
+                cupboard().withDatabase(MainActivity.database).get(fragmentMonster);
+                cupboard().withDatabase(MainActivity.database).delete(fragmentMonster);
+                fragmentMonster.setName(etMonsterName.getText().toString());
+                cupboard().withDatabase(MainActivity.database).put(fragmentMonster);
+                MainActivity.adapter.notifyDataSetChanged();
+
+
                 return false;
             }
         });
 
     }
 
-    public Monster loadMonster(Monster monster) {
+    public void loadMonster(Monster monster) {
+
+        fragmentMonster = monster;
 
         Picasso.with(getContext()).load("file:///android_asset/" + monster.getImageAsset()).into(ivMonsterPic);
 
@@ -115,8 +121,6 @@ public class MonsterFragment extends Fragment  {
         tvMonsterRarity.setText("Rarity: " + monster.getRarity());
         tvMonsterLikes.setText("Likes: " + monster.getLikes());
         tvMonsterWeakness.setText("Weakness: " + monster.getWeakness());
-
-        return thisMonster;
     }
 
     private void initViews() {
