@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,11 @@ public class MonsterFragment extends Fragment  {
     TextView tvMonsterRarity;
     TextView tvMonsterLikes;
     TextView tvMonsterWeakness;
+
+    Button btnAtk;
+    Button btnHP;
+    Button btnSize;
+
     LinearLayout linearLayout;
 
     public static MonsterFragment newInstance(Serializable monster) {
@@ -83,12 +89,19 @@ public class MonsterFragment extends Fragment  {
     }
 
     private void initViews() {
+        //Layouts
         linearLayout = (LinearLayout) view.findViewById(R.id.ll_monster_frag);
+        //ImageViews
         ivMonsterPic = (ImageView) view.findViewById(R.id.iv_monster_pic);
+        //TextViews
         tvMonsterName = (TextView) view.findViewById(R.id.tv_monster_name);
         tvMonsterType = (TextView) view.findViewById(R.id.tv_monster_familiar);
         tvMonsterRarity = (TextView) view.findViewById(R.id.tv_monster_rarity);
         tvMonsterLikes = (TextView) view.findViewById(R.id.tv_monster_ability_1);
         tvMonsterWeakness = (TextView) view.findViewById(R.id.tv_monster_ability_2);
+        //Buttons
+        btnAtk = (Button) view.findViewById(R.id.btn_atk);
+        btnHP = (Button) view.findViewById(R.id.btn_hp);
+        btnSize= (Button) view.findViewById(R.id.btn_size);
     }
 }
