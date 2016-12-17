@@ -1,6 +1,7 @@
 package nyc.c4q.rafaelsoto.monsteregg.view;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -36,10 +36,6 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
         linearLayout = (LinearLayout) itemView.findViewById(R.id.ll_monster_item);
         caughtMonsterImage = (ImageView) itemView.findViewById(R.id.caught_image);
         caughtMonsterName = (TextView) itemView.findViewById(R.id.caught_name);
-    }
-
-    private void removeMonster(Monster monster) {
-        cupboard().withDatabase(database).delete(monster);
     }
 
     public void bind(final Monster aMonster) {
@@ -74,10 +70,30 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
                 cupboard().withDatabase(database).get(aMonster);
                 removeMonster(aMonster);
                 refreshMonsterList();
-                Toast.makeText(itemView.getContext(), aMonster.getName() + " was removed from the collection!", Toast.LENGTH_SHORT).show();
+
+                Snackbar snackbar = Snackbar.make(itemView,
+                        aMonster.getName() + " was removed from the collection!",
+                        Snackbar.LENGTH_LONG)
+                        .setAction("Undo ⎌", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                caughtMonsters.add(aMonster);
+                                addMonster(aMonster);
+                                refreshMonsterList();
+                            }
+                        });
+                snackbar.show();
                 return true;
             }
         });
+    }
+
+    private void removeMonster(Monster monster) {
+        cupboard().withDatabase(database).delete(monster);
+    }
+
+    private void addMonster(Monster monster) {
+        cupboard().withDatabase(database).put(monster);
     }
 
     private void refreshMonsterList() {
