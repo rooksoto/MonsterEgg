@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -73,7 +74,7 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
                 cupboard().withDatabase(database).get(aMonster);
                 removeMonster(aMonster);
                 refreshMonsterList();
-
+                Toast.makeText(itemView.getContext(), aMonster.getName() + " was removed from the collection!", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
