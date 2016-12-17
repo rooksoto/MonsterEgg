@@ -51,14 +51,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
-
-    /*
-    This adds one of 3 sounds to builder
-    Simply add:
-                .setSound(randomSound())
-    after .setContext. Not currently being used.
-     */
-
     private Uri randomSound() {
         Uri uri;
         Random random = new Random();

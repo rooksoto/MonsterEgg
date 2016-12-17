@@ -2,10 +2,13 @@ package nyc.c4q.rafaelsoto.monsteregg.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,20 +19,24 @@ import java.io.Serializable;
 
 import nyc.c4q.rafaelsoto.monsteregg.R;
 import nyc.c4q.rafaelsoto.monsteregg.model.Monster;
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
+
 
 
 public class MonsterFragment extends Fragment  {
     View view;
+    FloatingActionButton fabEditName;
     ImageView ivMonsterPic;
-    TextView tvMonsterName;
+    EditText etMonsterName;
     TextView tvMonsterType;
     TextView tvMonsterRarity;
     TextView tvMonsterLikes;
     TextView tvMonsterWeakness;
     LinearLayout linearLayout;
 
-    public static MonsterFragment newInstance(Serializable monster) {
+    public static Monster fragmentMonster;
 
+    public static MonsterFragment newInstance(Serializable monster) {
         MonsterFragment fragment = new MonsterFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("ser_monster", monster);
@@ -55,13 +62,47 @@ public class MonsterFragment extends Fragment  {
         loadMonster((Monster) getArguments()
                 .getSerializable("ser_monster")
         );
+
+        fabEditName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editMonsterName();
+            }
+        });
+    }
+
+    private void editMonsterName() {
+        etMonsterName.setEnabled(true);
+        etMonsterName.requestFocus();
+        etMonsterName.setSelection(etMonsterName
+                .getText()
+                .length()
+        );
+        etMonsterName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                etMonsterName.setEnabled(false);
+                etMonsterName.setText(etMonsterName.getText());
+                cupboard().withDatabase(MainActivity.database).get(fragmentMonster);
+                cupboard().withDatabase(MainActivity.database).delete(fragmentMonster);
+                fragmentMonster.setName(etMonsterName.getText().toString());
+                cupboard().withDatabase(MainActivity.database).put(fragmentMonster);
+                MainActivity.adapter.notifyDataSetChanged();
+
+
+                return false;
+            }
+        });
+
     }
 
     public void loadMonster(Monster monster) {
 
+        fragmentMonster = monster;
+
         Picasso.with(getContext()).load("file:///android_asset/" + monster.getImageAsset()).into(ivMonsterPic);
 
-        tvMonsterName.setText(monster.getName());
+        etMonsterName.setText(monster.getName());
         tvMonsterType.setText("Type: " + monster.getType());
 
         switch (monster.getRarity()) {
@@ -83,9 +124,10 @@ public class MonsterFragment extends Fragment  {
     }
 
     private void initViews() {
+        fabEditName = (FloatingActionButton) view.findViewById(R.id.fab_edit_name);
         linearLayout = (LinearLayout) view.findViewById(R.id.ll_monster_frag);
         ivMonsterPic = (ImageView) view.findViewById(R.id.iv_monster_pic);
-        tvMonsterName = (TextView) view.findViewById(R.id.tv_monster_name);
+        etMonsterName = (EditText) view.findViewById(R.id.et_monster_name);
         tvMonsterType = (TextView) view.findViewById(R.id.tv_monster_type);
         tvMonsterRarity = (TextView) view.findViewById(R.id.tv_monster_rarity);
         tvMonsterLikes = (TextView) view.findViewById(R.id.tv_monster_likes);
