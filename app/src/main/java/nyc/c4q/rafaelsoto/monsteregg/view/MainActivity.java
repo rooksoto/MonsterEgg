@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity    {
         alarm.setInexactRepeating(
                 AlarmManager.RTC_WAKEUP,
                 firstMillis,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES / 30,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES / 15,
                 pendingIntent)
         ;
     }
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity    {
         if (backStackExists) {
             super.onBackPressed();
         } else {
-            super.finish();
+            moveTaskToBack(true);
         }
     }
 

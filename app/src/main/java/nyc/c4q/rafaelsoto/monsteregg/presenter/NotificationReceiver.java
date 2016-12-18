@@ -30,11 +30,11 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     public void notification(Context context, Monster monster) {
 
-        Toast.makeText(context,
-                "New monster egg hatched! Approach With Caution...",
-                Toast.LENGTH_LONG)
-                .show()
-        ;
+//        Toast.makeText(context,
+//                "New monster egg hatched! Approach With Caution...",
+//                Toast.LENGTH_LONG)
+//                .show()
+//        ;
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("ser_monster", monster);
