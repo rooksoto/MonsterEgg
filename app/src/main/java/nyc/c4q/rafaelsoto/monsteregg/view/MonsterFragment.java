@@ -39,7 +39,7 @@ public class MonsterFragment extends Fragment  {
     public static MonsterFragment newInstance(Serializable monster) {
         MonsterFragment fragment = new MonsterFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("ser_monster", monster);
+        bundle.putSerializable("frag_ser_monster", monster);
 
         return fragment;
     }
@@ -64,7 +64,7 @@ public class MonsterFragment extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
 
         loadMonster((Monster) getArguments()
-                .getSerializable("ser_monster")
+                .getSerializable("frag_ser_monster")
         );
 
         fabEditName.setOnClickListener(new View.OnClickListener() {

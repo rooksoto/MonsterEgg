@@ -40,15 +40,8 @@ public class MainActivity extends AppCompatActivity    {
         database = instantiateDataBase();
 
         //This function adds a monster to the database
-        try {
-            Monster passedInMonster = (Monster)
-                    getIntent()
-                            .getSerializableExtra("ser_monster");
-            addMonster(passedInMonster);
-            getIntent().removeExtra("ser_monster");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        newMonsterReceived();
+
 
         //Load database into the "caughtMonsters" adapter
         caughtMonsters = loadDataBase(database);
@@ -64,6 +57,18 @@ public class MainActivity extends AppCompatActivity    {
 
         //Schedules notifications
         scheduleAlarm();
+    }
+
+    private void newMonsterReceived() {
+        try {
+            Monster passedInMonster = (Monster)
+                    getIntent()
+                            .getSerializableExtra("ser_monster");
+            addMonster(passedInMonster);
+            getIntent().removeExtra("ser_monster");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void addMonster(Monster monster) {
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity    {
         // Create a PendingIntent to be triggered when the alarm goes off
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this,
-                NotificationReceiver.REQUEST_CODE,
+                NotificationReceiver.requestCode,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
