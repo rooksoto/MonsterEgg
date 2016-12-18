@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity    {
         caughtMonsters = loadDataBase(database);
         if (caughtMonsters.size() == 0) {
             Toast.makeText(this,
-                    "You have no monsters... Go catch some!", Toast.LENGTH_LONG).show();
+                    "You have no monsters... Go catch some!",
+                    Toast.LENGTH_LONG).show()
+            ;
         }
 
         //Initialize RecyclerView
@@ -65,7 +67,10 @@ public class MainActivity extends AppCompatActivity    {
     }
 
     private void addMonster(Monster monster) {
-        cupboard().withDatabase(database).put(monster);
+        cupboard()
+                .withDatabase(database)
+                .put(monster)
+        ;
         onResume();
     }
 
@@ -102,24 +107,42 @@ public class MainActivity extends AppCompatActivity    {
     public void scheduleAlarm() {
 
         // Construct an intent that will execute the AlarmReceiver
-        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        Intent intent = new Intent(getApplicationContext(),
+                NotificationReceiver.class)
+                ;
 
         // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, NotificationReceiver.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                NotificationReceiver.REQUEST_CODE,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
 
         long firstMillis = System.currentTimeMillis(); // alarm is set right away
 
-        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarm = (AlarmManager)
+                this.getSystemService
+                (Context.ALARM_SERVICE)
+                ;
 
         // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
         // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
         //below works, sets alarm every 30 secs (for testing now)
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, AlarmManager.INTERVAL_FIFTEEN_MINUTES / 30, pendingIntent);
+        alarm.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP,
+                firstMillis,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES / 30,
+                pendingIntent)
+        ;
     }
 
     @Override
     public void onBackPressed() {
-        boolean backStackExists = (getSupportFragmentManager().getBackStackEntryCount() > 0);
+        boolean backStackExists = (
+                getSupportFragmentManager()
+                .getBackStackEntryCount() > 0
+        );
         if (backStackExists) {
             super.onBackPressed();
         } else {
@@ -136,6 +159,4 @@ public class MainActivity extends AppCompatActivity    {
         }
         adapter.notifyDataSetChanged();
     }
-
-
 }

@@ -41,7 +41,10 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
     public void bind(final Monster aMonster) {
 
         caughtMonsterName.setText(aMonster.getName());
-        Picasso.with(cardView.getContext()).load("file:///android_asset/" + aMonster.getImageAsset()).into(caughtMonsterImage);
+        Picasso.with(cardView.getContext())
+                .load("file:///android_asset/" + aMonster.getImageAsset())
+                .into(caughtMonsterImage)
+        ;
 
         caughtMonsterImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,11 +92,17 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void removeMonster(Monster monster) {
-        cupboard().withDatabase(database).delete(monster);
+        cupboard().withDatabase
+                (database)
+                .delete(monster)
+        ;
     }
 
     private void addMonster(Monster monster) {
-        cupboard().withDatabase(database).put(monster);
+        cupboard().withDatabase
+                (database)
+                .put(monster)
+        ;
     }
 
     private void refreshMonsterList() {
