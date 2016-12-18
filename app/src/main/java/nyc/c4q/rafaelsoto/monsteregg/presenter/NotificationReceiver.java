@@ -30,22 +30,35 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     public void notification(Context context, Monster monster) {
 
-        Toast.makeText(context, "New Monster Detected, Approach With Caution!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context,
+                "New Monster Detected, Approach With Caution!",
+                Toast.LENGTH_LONG)
+                .show()
+        ;
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("ser_monster", monster);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSound(randomSound())
                 .setSmallIcon(R.drawable.cracked_egg)
                 .setContentTitle("New Monster Detected")
                 .setAutoCancel(true)
-                .setContentIntent(pendingIntent) //this starts the service when the notification is clicked
-                .setContentText("" + monster.getName() + " is lurking, try to catch it if you dare!");
+                .setContentIntent(pendingIntent)
+                .setContentText(
+                        "" + monster.getName() + " is lurking, try to catch it if you dare!"
+                );
 
         // Get the notification manager system service
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE)
+                ;
 
         // Setting a notification ID allows you to update the notification later on.
         notificationManager.notify(NOTIFICATION_ID, builder.build());
@@ -57,16 +70,28 @@ public class NotificationReceiver extends BroadcastReceiver {
         int sound = random.nextInt(3);
         switch (sound) {
             case 0:
-                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_growl);
+                uri = Uri.parse(
+                        "android.resource://nyc.c4q.rafaelsoto.monsteregg/"
+                                + R.raw.snd_growl
+                );
                 break;
             case 1:
-                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_soul);
+                uri = Uri.parse(
+                        "android.resource://nyc.c4q.rafaelsoto.monsteregg/"
+                                + R.raw.snd_soul
+                );
                 break;
             case 2:
-                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_mercy);
+                uri = Uri.parse(
+                        "android.resource://nyc.c4q.rafaelsoto.monsteregg/"
+                                + R.raw.snd_mercy
+                );
                 break;
             default:
-                uri = Uri.parse("android.resource://nyc.c4q.rafaelsoto.monsteregg/" + R.raw.snd_growl);
+                uri = Uri.parse(
+                        "android.resource://nyc.c4q.rafaelsoto.monsteregg/"
+                                + R.raw.snd_growl
+                );
                 break;
         }
         return uri;

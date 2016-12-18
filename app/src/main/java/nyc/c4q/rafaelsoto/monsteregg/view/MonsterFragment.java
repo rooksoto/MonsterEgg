@@ -50,7 +50,11 @@ public class MonsterFragment extends Fragment  {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_monster, container, false);
+        view = inflater.inflate(
+                R.layout.fragment_monster,
+                container,
+                false
+        );
         initViews();
         return view;
     }
@@ -83,10 +87,19 @@ public class MonsterFragment extends Fragment  {
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 etMonsterName.setEnabled(false);
                 etMonsterName.setText(etMonsterName.getText());
-                cupboard().withDatabase(MainActivity.database).get(fragmentMonster);
-                cupboard().withDatabase(MainActivity.database).delete(fragmentMonster);
+                cupboard().withDatabase
+                        (MainActivity.database)
+                        .get(fragmentMonster)
+                ;
+                cupboard().withDatabase
+                        (MainActivity.database)
+                        .delete(fragmentMonster)
+                ;
                 fragmentMonster.setName(etMonsterName.getText().toString());
-                cupboard().withDatabase(MainActivity.database).put(fragmentMonster);
+                cupboard().withDatabase
+                        (MainActivity.database)
+                        .put(fragmentMonster)
+                ;
                 MainActivity.adapter.notifyDataSetChanged();
 
 
