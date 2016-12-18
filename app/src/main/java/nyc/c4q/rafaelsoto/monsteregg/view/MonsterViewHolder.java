@@ -50,7 +50,7 @@ public class MonsterViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("ser_monster", aMonster);
+                bundle.putSerializable("frag_ser_monster", aMonster);
 
                 Fragment monsterFragment = MonsterFragment.newInstance(aMonster);
                 monsterFragment.setArguments(bundle);

@@ -18,7 +18,7 @@ import nyc.c4q.rafaelsoto.monsteregg.view.MainActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
-    public static final int REQUEST_CODE = 12345;
+    public static int requestCode = 1;
     private static final int NOTIFICATION_ID = 14;
 
     @Override
@@ -31,24 +31,26 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void notification(Context context, Monster monster) {
 
         Toast.makeText(context,
-                "New Monster Detected, Approach With Caution!",
+                "New monster egg hatched! Approach With Caution...",
                 Toast.LENGTH_LONG)
                 .show()
         ;
         Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("ser_monster", monster);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context,
-                0,
+                requestCode,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
 
+        requestCode++;
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSound(randomSound())
                 .setSmallIcon(R.drawable.cracked_egg)
-                .setContentTitle("New Monster Detected")
+                .setContentTitle("A monster egg has hatched!")
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setContentText(
